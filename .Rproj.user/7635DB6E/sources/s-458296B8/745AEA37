@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1612999528671.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "745AEA37",
+    "lastKnownWriteTime" : 1613164742,
+    "last_content_update" : 1613164742920,
+    "path" : "C:/Users/Jessie/Desktop/제상민/Data Project/R/Titanic_R/a) Imputation Practice.R",
+    "project_path" : "a) Imputation Practice.R",
+    "properties" : {
+        "cursorPosition" : "4,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

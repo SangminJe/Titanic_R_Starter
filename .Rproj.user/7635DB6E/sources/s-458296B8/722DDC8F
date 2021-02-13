@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1613081305336.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "722DDC8F",
+    "lastKnownWriteTime" : 2314885436532012089,
+    "last_content_update" : 1613081305336,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "f468b3e9e8b24a4f89f5f87f78150ab8",
+        "name" : "imputed_data",
+        "title" : "imputed_data"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

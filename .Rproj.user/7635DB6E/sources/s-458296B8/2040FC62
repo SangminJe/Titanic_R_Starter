@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1612990673245.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2040FC62",
+    "lastKnownWriteTime" : 1613182409,
+    "last_content_update" : 1613182409352,
+    "path" : "C:/Users/Jessie/Desktop/제상민/Data Project/R/Titanic_R/0.Data Load & Check.R",
+    "project_path" : "0.Data Load & Check.R",
+    "properties" : {
+        "cursorPosition" : "9,60",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
