@@ -4,12 +4,17 @@ install.packages('gridExtra')
 install.packages('corrplot')
 install.packages('dplyr')
 install.packages('ggplot2')
+install.packages('RColorBrewer')
+install.packages('rmarkdown')
+install.packages("knitr")
+
+
 
 library(dplyr)
 library(ggplot2)
 library(VIM) # Visualzation and imputation of Missing Values
 library(corrplot) # corrplot 
-
+library(RColorBrewer)
 
 ### Variable Definition
 # survival	Survival	0 = No, 1 = Yes
@@ -25,8 +30,8 @@ library(corrplot) # corrplot
 
 
 #### 1. Data Load
-train <- read.csv('data/train.csv')
-test <- read.csv('data/test.csv')
+train <- read.csv('data/train.csv', na.strings = c('','NA')) # 애초에 로딩할 때 부터 공백은 NA로 출력되도록 설정하기
+test <- read.csv('data/test.csv', na.strings = c('','NA'))
 all <- bind_rows(train,test) # 두개의 데이터를 합친다.
 all_Origin <- all
 
@@ -45,13 +50,27 @@ glimpse(all)
 table(is.na(all$Embarked))
 
 all[nchar(all$Embarked) <1, ] #62, 830 Data Missing
-all[nchar(all$Embarked) <1,]$Embarked <- NA # NA 처리해주기
-all[c(62,830),]$Embarked
+# all[nchar(all$Embarked) <1,]$Embarked <- NA # NA 처리해주기
+
+all[c(62,830),]$Embarked <- NA # 공백 있으면 NA로 치환
+
+# Data NA 변환 확인
+all[is.na(all$Embarked),]
+
+# 아래 결과를 보면 
+all[-c(62,830),] %>%
+  filter(Pclass == 1) %>% 
+  group_by(Embarked) %>% 
+  summarise(mean_Fare = mean(Fare, na.rm =T),
+            n = n())
 
 
+# 시각화로 확인 
 all[-c(62,830),] %>%
   ggplot(mapping= aes(Embarked,Fare))+
   geom_boxplot()+
+  geom_hline(yintercept = c(sum(all[all$Embarked=='Q',]$Fare, na.rm=T)/nrow(all[all$Embarked =='Q', ]), sum(all$Fare, na.rm=T)/nrow(all))
+             , lty =2, col ='red', show.legend = T)
 
 
 # Check Cabin Data Missing Processing
@@ -79,8 +98,6 @@ ggplot(data = all[1:891,], mapping = aes(Sex, fill=Survived))+
  geom_bar(position='fill')+ # 그래프를 채워서 비율로 표현한다는 뜻
  ylab('Survival Rate')+
  geom_hline(yintercept = sum(train$Survived)/nrow(train), col = 'white', lty = 2)
-
-
 
 
 # aggr function을 사용해서 Missing Value 시각화
@@ -126,6 +143,7 @@ ggplot(data = all, mapping = aes(Embarked, Fare))+
 
 
 # b-3. 
+
 
 # d. 
 library(corrplot) # corrplot 
