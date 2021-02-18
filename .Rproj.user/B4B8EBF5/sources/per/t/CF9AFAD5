@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1613425448193.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2860912363",
+    "id" : "CF9AFAD5",
+    "lastKnownWriteTime" : 1613512531,
+    "last_content_update" : 1613512531756,
+    "path" : "C:/Users/ssngm/바탕 화면/Git/Titanic_R_Starter/0.Data Load & Check_RMarkDown.Rmd",
+    "project_path" : "0.Data Load & Check_RMarkDown.Rmd",
+    "properties" : {
+        "cursorPosition" : "53,24",
+        "last_setup_crc32" : "",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

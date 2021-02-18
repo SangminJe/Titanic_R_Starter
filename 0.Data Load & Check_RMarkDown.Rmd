@@ -1,0 +1,64 @@
+---
+title: "Titanic0_Data Load and Check"
+author: "Sangmin Je"
+date: '2021 2 16 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 데이터 로드하고 체크해보기
+
+이 문서는 Titanic 스타터들을 위한 R 분석의 데이터 로드 및 체크에 해당하는 내용입니다.
+
+
+먼저 아래와 같이 라이브러리들을 준비합니다.
+```{r install, echo=T, results='hide', message=FALSE}
+
+library(dplyr)
+library(ggplot2)
+library(VIM) # Visualzation and imputation of Missing Values
+library(corrplot) # corrplot 
+library(RColorBrewer)
+```
+
+##0. 변수들의 정리
+데이터 분석/정리에 앞서 데이터의 특성을 잘 이해하는 것은 중요하다. 아래 열거된 데이터의 정보들을 잘 인지하고 새로운 변수를 만들어내거나 EDA의 방향성을 정할 때 참고하는 것이 좋다.
+
+- survival:	Survival	0 = No, 1 = Yes
+- pclass:	Ticket class	1 = 1st, 2 = 2nd, 3 = 3rd
+- sex:	Sex	
+- Age:	Age in years	
+- sibsp:	# of siblings / spouses aboard the Titanic	
+- parch:	# of parents / children aboard the Titanic	
+- ticket:	Ticket number	
+- fare:	Passenger fare	
+- cabin:	Cabin number	
+- embarked:	Port of Embarkation
+
+
+## 1. Data Load 
+데이터를 로드하는 단계이다.
+
+```{r data_load}
+train <- read.csv('data/train.csv', na.strings = c('','NA'))
+test <- read.csv('data/test.csv', na.strings = c('','NA'))
+all <- bind_rows(train,test) # 두개의 데이터를 합친다.
+all_Origin <- all # Back용 
+```
+  1. 여기서 `na.strings`의 역할은 로딩할 때부터 공백은 NA로 불러오기 위함이다. 나중에 살펴보겠지만, Embarked의 경우 그냥 공백의 영역인데 NA의 영역으로 인식이 안되는 경우가 있다. 이를 미연에 방하기 위한 장치이다.
+  2. 더불어`bind-rows()`를 사용해서 train과 test를 먼저 묶어준다.
+   - 이렇게 하는 이유는 이후에 진행할 feature engineering을 통해 새로운 변수를 생성하거나 결측치를 대체하는 작업을 진행할 경우 모든 데이터에 한 번에 적용시켜주기 위함이다. 나중에 모델을 훈련시킬 때는 다시 테스트와 트레인을 분리한다.
+  3. 마지막으로 원본 데이터를 항상 백업해둔다.
+
+
+## 2. Count Survival
+생존자를 파악해보자.
+
+```{r Count_Surv}
+train %>% count(Survived)
+surv <- train %>% count(Survived) %>% filter(Survived == 1) %>% .$n
+nosurv <- train %>% count(Survived) %>% filter(Survived == 0) %>% .$n
+```
