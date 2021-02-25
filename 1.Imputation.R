@@ -1,74 +1,3 @@
-#### package load
-install.packages('VIM')
-install.packages('gridExtra')
-install.packages('corrplot')
-install.packages('dplyr')
-install.packages('ggplot2')
-install.packages('RColorBrewer')
-install.packages('rmarkdown')
-install.packages("knitr")
-install.packages("forcats")
-install.packages("scales")
-
-
-
-library(dplyr)
-library(ggplot2)
-library(VIM) # Visualzation and imputation of Missing Values
-library(corrplot) # corrplot 
-library(RColorBrewer)
-library(forcats)# 범주형 변수를 다루는데 도움을 주는 패키지
-library(scales)
-
-### Variable Definition
-# survival	Survival	0 = No, 1 = Yes
-# pclass	Ticket class	1 = 1st, 2 = 2nd, 3 = 3rd
-# sex	Sex	
-# Age	Age in years	
-# sibsp	# of siblings / spouses aboard the Titanic	
-# parch	# of parents / children aboard the Titanic	
-# ticket	Ticket number	
-# fare	Passenger fare	
-# cabin	Cabin number	
-# embarked	Port of Embarkation
-
-
-#### 1. Data Load
-train <- read.csv('data/train.csv', na.strings = c('','NA')) # 애초에 로딩할 때 부터 공백은 NA로 출력되도록 설정하기
-test <- read.csv('data/test.csv', na.strings = c('','NA'))
-all <- bind_rows(train,test) # 두개의 데이터를 합친다.
-all_Origin <- all
-
-
-#### 2. Data Check
-str(all)
-summary(all)
-glimpse(all)
-
-#### 3. Count Survival
-train %>% count(Survived)
-surv <- train %>% count(Survived) %>% filter(Survived == 1) %>% .$n
-nosurv <- train %>% count(Survived) %>% filter(Survived == 0) %>% .$n
-
-# Survival Rate
-train %>% 
-  summarise(Rate_Suv = sum(Survived,na.rm = T) / nrow(train) * 100)
-
-# Factor Recoding
-
-# 1) Sex
-all <- all %>%
-  mutate(Sex = factor(Sex))
-# 2) Survived
-all <- all %>%
-  mutate(Survived = factor(Survived)) %>% 
-  mutate(Survived = fct_recode(Survived, 'No'='0','Yes'='1'))
-
-# Visualization
-ggplot(data = all[1:891, ], mapping = aes(Sex, fill=Survived))+
-  geom_bar(position='fill')+
-  geom_hline(yintercept = sum(train$Survived)/nrow(train), lty = 2, col = 'white')
-
 # 4. Check Cabin Data Missing Processing
 
 aggr(all, prop = F, numbers = T,cex.axis = 0.4) # 확률 대신 정수로 표현하겠다는 뜻
@@ -157,9 +86,9 @@ all %>%
   ggplot(aes(Embarked,mean_Fare))+
   geom_col()+
   geom_text(aes(label = mean_Fare), position = position_dodge(width = 0.8), vjust = -.3)
-# S이모르 27.4
+# S이므로 27.4
 
-# 3개의 관점에서 예측치가 다 다름.. ㅠ_ㅠ
+# Age, Plcass, Embarked 관점에서 보게 되는 Imputing 값이 다르다.
 
 # b-1. Pclass와 Fare 간의 Boxplot 그리기
 all %>% ggplot(mapping = aes(Pclass,Fare)) + 
@@ -170,17 +99,24 @@ all %>% ggplot(mapping = aes(Pclass,Fare)) +
 ggplot(data = all, mapping = aes(Embarked, Fare))+
   geom_boxplot()
 
+# b-3. Embarked와 Pclass를 반영해서 mean과 median 값을 구해보자
+all %>% 
+  group_by(Embarked, Pclass) %>% 
+  summarise(mean_Fare = mean(Fare, na.rm =T), # 14.4
+            median_Fare = median(Fare, na.rm=T), # 8.05
+            n =n())
+## 1개의 값이고 Imputation에 큰 영향이 없으므로 간단하게 마무리한다.
+## Embarked와 Pclass의 기준으로 최종 Inputation을 하는 게 로지컬해보인다.
+## 그래서 중앙 값인 8.05로 대체하기로 하자
+## 나중에 Imputation에 대한 방법론은 제대로 학습할 필요가 있을 것 같다.
 
-# b-3. 
+all[is.na(all$Fare),'Fare'] <- 8.05
+all[1044,]
+
+# 3) Age에 대한 Imputation
+
+ggplot(data = all, mapping=aes(Age))+
+  geom_density(fill='blue')+
+  geom_vline(xintercept = median(all$Age,na.rm=T), lty = 2, col ='red')
 
 
-# d. 
-library(corrplot) # corrplot 
-
-
-cor(all)
-
-
-
-# EDA
-# 1) 
