@@ -114,9 +114,13 @@ all[is.na(all$Fare),'Fare'] <- 8.05
 all[1044,]
 
 # 3) Age에 대한 Imputation
+# Age 안에는 총 250개 정도의 결측값이 있음
 
 ggplot(data = all, mapping=aes(Age))+
   geom_density(fill='blue')+
   geom_vline(xintercept = median(all$Age,na.rm=T), lty = 2, col ='red')
 
+head(all,10)
+
+# a) 나이에 대한 Imputation을 위한 Name Column 작업
 

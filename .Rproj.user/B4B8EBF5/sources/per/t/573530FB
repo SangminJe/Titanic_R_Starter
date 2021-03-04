@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1614892293210.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "387271379",
+    "id" : "573530FB",
+    "lastKnownWriteTime" : 1614895095,
+    "last_content_update" : 1614895095012,
+    "path" : "C:/Users/ssngm/바탕 화면/Git/Titanic_R_Starter/1. Feature Engineering.R",
+    "project_path" : "1. Feature Engineering.R",
+    "properties" : {
+        "cursorPosition" : "31,0",
+        "scrollLine" : "12",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
