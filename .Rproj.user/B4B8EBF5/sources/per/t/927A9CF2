@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1615152653401.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3063146824",
+    "id" : "927A9CF2",
+    "lastKnownWriteTime" : 1615240522,
+    "last_content_update" : 1615240522637,
+    "path" : "C:/Users/ssngm/바탕 화면/Git/Titanic_R_Starter/3. Modeling.R",
+    "project_path" : "3. Modeling.R",
+    "properties" : {
+        "cursorPosition" : "23,36",
+        "scrollLine" : "20",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

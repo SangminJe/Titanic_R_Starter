@@ -123,4 +123,33 @@ ggplot(data = all, mapping=aes(Age))+
 head(all,10)
 
 # a) 나이에 대한 Imputation을 위한 Name Column 작업
+sum(is.na(all$Age))
+
+# Make variables factors into factors
+factor_vars <- c('PassengerId','Pclass','Sex','Embarked',
+                 'title','Surname','Fsize','FsizeD')
+
+all[factor_vars] <- lapply(all[factor_vars], function(x) as.factor(x))
+
+# Set a random seed
+set.seed(129)
+
+# Perform mice imputation, excluding certain less-than-useful variables:
+mice_mod <- mice(all[, !names(all) %in% c('PassengerId','Name','Ticket','Cabin','Fsize','Surname','Survived')], method='rf') 
+
+mice_output <- complete(mice_mod)
+
+par(mfrow=c(1,2))
+hist(all$Age, freq=F, main='Age: Original Data', 
+     col='darkgreen', ylim=c(0,0.04))
+hist(mice_output$Age, freq=F, main='Age: MICE Output', 
+     col='lightgreen', ylim=c(0,0.04))
+
+# Replace Age variable from the mice model.
+all$Age <- mice_output$Age
+
+# Show new number of missing Age values
+sum(is.na(all$Age))
+
+aggr(all, numbers = T, combined= T,ces.axis =.8)
 

@@ -29,3 +29,10 @@ all$Fsize <- all$SibSp + all$Parch + 1
 all[1:891,] %>% ggplot(mapping=aes(Fsize, fill=Survived))+
   geom_bar(position='dodge') # Stack이 안되도록 하는 명령어
 
+
+# Discretize family size
+all$FsizeD[all$Fsize == 1] <- 'singleton'
+all$FsizeD[all$Fsize < 5 & all$Fsize > 1] <- 'small'
+all$FsizeD[all$Fsize > 4] <- 'large'
+
+

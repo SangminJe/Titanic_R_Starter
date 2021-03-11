@@ -9,6 +9,8 @@
 # install.packages("knitr")
 # install.packages("forcats")
 # install.packages("scales")
+# install.packages("randomForest")
+# install.packages('mice')
 
 library(dplyr)
 library(ggplot2)
@@ -18,3 +20,5 @@ library(RColorBrewer)
 library(forcats)# 범주형 변수를 다루는데 도움을 주는 패키지
 library(scales)
 library(stringr)
+library(randomForest)
+library(mice)
